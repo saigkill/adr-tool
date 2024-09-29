@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using adr_tool;
+
+using Newtonsoft.Json;
 
 namespace adr
 {
@@ -42,7 +44,7 @@ namespace adr
     {
       if (!File.Exists(DefaultFileName))
       {
-        settings.DocFolder = "docs\\adr";
+        settings.DocFolder = GlobalVariables.AdrFolder;
         settings.TemplateFolder = "";
         return settings;
       }

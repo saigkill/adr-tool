@@ -19,31 +19,29 @@ File a bug report [on Azure DevOps](https://dev.azure.com/saigkill/AdrTool/_work
 
 ## Installation
 
+Alternate to the NuGet.org packaage, you can use the Azure Feed: https://pkgs.dev.azure.com/saigkill/AdrTool/_packaging/SaigkillsAdrFeed/nuget/v3/index.json
+
 To install the tool, run the following command in the powershell or cmd:
 ```powershell
-dotnet tool install --global Saigkill.AdrTool.CLI
+dotnet tool install --global Saigkill.adr-tool.CLI
 ```
 
 ## Usage
 
 To initialize the ADR directory, run the following command in the powershell or cmd:
 ```powershell
-adr-tool init
+adr init
 ```
 
 To create a new ADR, run the following command in the powershell or cmd:
 ```powershell
-adr-tool new "Title of the ADR"
+adr new "Title of the ADR"
 ```
 
 To list all ADRs, run the following command in the powershell or cmd:
 ```powershell
-adr-tool list
+adr list
 ```
 
-To supersede an ADR, run the following command in the powershell or cmd:
-```powershell
-adr-tool new "Title of the ADR" -s <ADR number>
-```
 
-This will create a new ADR file in the `docs/adr` directory with the title as the filename. Then just open and edit it in any editor or IDE.
+This will create a new ADR file in the `docs/adr` directory with the title as the filename. It will openened in the default editor.
