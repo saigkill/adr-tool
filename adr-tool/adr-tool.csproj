@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>adr_tool</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>Saigkill.$(AssemblyName).CLI</PackageId>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>A dotnet tool for working with Architecture Decision Records (ADRs).</Title>
+    <Version>0.9.1</Version>
+    <Authors>Sascha Manns</Authors>
+    <Description>A dotnet tool for working with Architecture Decision Records (ADRs).</Description>
+    <Copyright>(c) 2024 by Sascha Manns</Copyright>
+    <PackageProjectUrl>https://dev.azure.com/saigkill/AdrTool</PackageProjectUrl>
+    <RepositoryUrl>https://saigkill@dev.azure.com/saigkill/AdrTool/_git/AdrTool</RepositoryUrl>
+    <PackageTags>tool adr architecture decision records</PackageTags>
+    <PackAsTool>True</PackAsTool>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <StartupObject>adr_tool.Program</StartupObject>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icons8-decision-96.png</PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\Assets\icons8-decision-96.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Meziantou.Analyzer" Version="2.0.168">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Roslynator.Analyzers" Version="4.12.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.32.0.97167">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

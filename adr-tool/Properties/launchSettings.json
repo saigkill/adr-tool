@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "adr-tool": {
+      "commandName": "Project",
+      "commandLineArgs": "init"
+    }
+  }
+}
