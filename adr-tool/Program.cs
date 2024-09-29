@@ -1,5 +1,7 @@
 ﻿using adr;
 
+using adr_tool.Strategies;
+
 using Microsoft.Extensions.CommandLineUtils;
 
 namespace adr_tool
@@ -10,15 +12,16 @@ namespace adr_tool
 
     private static void Main(string[] args)
     {
+      var generateStrategy = new GenerateOutput();
       var app = new CommandLineApplication();
-      app.Name = "adr-tool";
-      app.Description = "";
+      app.Name = "adr";
+      app.Description = "A simply tool to handle architecture decision records.";
 
       app.HelpOption(HelpOption);
 
       app.Command("init", (command) =>
       {
-        command.Description = "Init it";
+        command.Description = "Creates the directory for adr's and writes first adr.";
         var directory = command.Argument("[directory]", "");
         command.HelpOption(HelpOption);
         command.OnExecute(() =>
@@ -38,6 +41,13 @@ namespace adr_tool
         command.Description = "";
         command.OnExecute(() =>
         {
+          string adrBinDir = AdrSettings.Current.DocFolder;
+          string[] files = Directory.GetFiles(adrBinDir, "*.md");
+          foreach (var file in files)
+          {
+            Console.WriteLine(file);
+          }
+
           return 0;
         });
       });
@@ -46,7 +56,7 @@ namespace adr_tool
       {
         command.Description = "";
         var title = command.Argument("title", "");
-        var supercedes = command.Option("-s|--supercedes", "", CommandOptionType.MultipleValue);
+        //var supersedes = command.Option("-s|--supersedes", "", CommandOptionType.MultipleValue);
         command.HelpOption(HelpOption);
 
         command.OnExecute(() =>
@@ -69,9 +79,31 @@ namespace adr_tool
 
       app.Command("generate", (command) =>
       {
-        command.Description = "";
+        command.Description = "Generate some outputs like toc or graph.";
+        var toc = command.Argument("toc", "");
+        toc.Description = "Generate a table of contents";
+        var graph = command.Argument("graph", "");
+        graph.Description = "Generate a graph of the architecture decision records.";
+        var intro = command.Option("-i|--intro", "", CommandOptionType.SingleValue);
+        intro.Description = "Write some things, that can be used as intro.";
+        var outro = command.Option("-o|--outro", "", CommandOptionType.SingleValue);
+        outro.Description = "Write some things, that can be used as outro.";
+        var linkPrefix = command.Option("-p|--link-prefix", "", CommandOptionType.SingleValue);
+        linkPrefix.Description = "Prefix for links in the generated output.";
+
         command.OnExecute(() =>
         {
+          if (toc != null)
+          {
+            generateStrategy.OutputStrategy(new GenerateToc(intro.ToString(), outro.ToString(), linkPrefix.ToString()));
+            generateStrategy.Generate();
+          }
+          //else if (graph != null)
+          //{
+          //  generateStrategy.OutputStrategy(new GenerateGraph(linkPrefix.ToString(), null));
+          //  generateStrategy.Generate();
+          //}
+
           return 0;
         });
       });

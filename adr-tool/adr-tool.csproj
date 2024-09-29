@@ -22,6 +22,7 @@
     <StartupObject>adr_tool.Program</StartupObject>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>icons8-decision-96.png</PackageIcon>
+    <ToolCommandName>adr</ToolCommandName>
   </PropertyGroup>
 
   <ItemGroup>
