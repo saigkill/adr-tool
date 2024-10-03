@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.InteropServices;
 
 using adr_tool;
@@ -45,7 +46,7 @@ namespace adr
           : 1;
       _fileName = Path.Combine(
           _docFolder,
-          $"{fileNumber.ToString().PadLeft(4, '0')}-{SanitizeFileName(this.Title)}.md");
+          $"{fileNumber.ToString(CultureInfo.InvariantCulture).PadLeft(4, '0')}-{SanitizeFileName(this.Title)}.md");
 
       CreateDocumentsFolderIfNotExists();
 
@@ -59,7 +60,7 @@ namespace adr
           : 1;
       _fileName = Path.Combine(
           this._docFolder,
-          $"{fileNumber.ToString().PadLeft(4, '0')}-{SanitizeFileName(this.Title)}.md");
+          $"{fileNumber.ToString(CultureInfo.InvariantCulture).PadLeft(4, '0')}-{SanitizeFileName(this.Title)}.md");
 
       CreateDocumentsFolderIfNotExists();
 
@@ -72,7 +73,7 @@ namespace adr
       {
         writer.WriteLine($"# {fileNumber}. {this.Title}");
         writer.WriteLine();
-        writer.WriteLine(DateTime.Today.ToString("yyyy-MM-dd"));
+        writer.WriteLine(DateTime.Today.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
         writer.WriteLine();
         writer.WriteLine("## Status");
         writer.WriteLine();
@@ -99,7 +100,7 @@ namespace adr
       {
         writer.WriteLine($"# {fileNumber}. {this.Title}");
         writer.WriteLine();
-        writer.WriteLine(DateTime.Today.ToString("yyyy-MM-dd"));
+        writer.WriteLine(DateTime.Today.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
         writer.WriteLine();
         writer.WriteLine("## Status");
         writer.WriteLine();
@@ -164,7 +165,7 @@ namespace adr
       var files =
           from file in new DirectoryInfo(docFolder).GetFiles("*.md", SearchOption.TopDirectoryOnly)
           let fileNum = file.Name.Substring(0, 4)
-          where int.TryParse(fileNum, out fileNumOut)
+          where int.TryParse(fileNum, CultureInfo.InvariantCulture, out fileNumOut)
           select fileNumOut;
       var maxFileNum = files.Any() ? files.Max() : 0;
       return maxFileNum + 1;
@@ -174,7 +175,7 @@ namespace adr
     {
       return title
           .Replace(' ', '-')
-          .ToLower();
+          .ToLower(CultureInfo.InvariantCulture);
     }
   }
 }
