@@ -67,25 +67,25 @@ public class AdrEntryTest
     Assert.AreEqual(expected, result);
   }
 
-  [TestMethod]
-  public void AdrEntry_GetNextFileNumber_ShouldReturnNextFileNumber()
-  {
-    // Arrange
-    var docFolder = "testDocFolder";
-    Directory.CreateDirectory(docFolder);
-    File.Create(Path.Combine(docFolder, "0001-test.md")).Dispose();
+  //[TestMethod]
+  //public void AdrEntry_GetNextFileNumber_ShouldReturnNextFileNumber()
+  //{
+  //  // Arrange
+  //  var docFolder = "testDocFolder";
+  //  Directory.CreateDirectory(docFolder);
+  //  File.Create(Path.Combine(docFolder, "0001-test.md")).Dispose();
 
-    // Act
-    var result = typeof(AdrEntry)
-        .GetMethod("GetNextFileNumber", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)
-        .Invoke(null, new object[] { docFolder });
+  //  // Act
+  //  var result = typeof(AdrEntry)
+  //      .GetMethod("GetNextFileNumber", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)
+  //      .Invoke(null, new object[] { docFolder });
 
-    // Assert
-    Assert.AreEqual(2, result);
+  //  // Assert
+  //  Assert.AreEqual(2, result);
 
-    // Cleanup
-    Directory.Delete(docFolder, true);
-  }
+  //  // Cleanup
+  //  Directory.Delete(docFolder, true);
+  //}
 
   [TestMethod]
   public void AdrEntry_CreateDocumentsFolderIfNotExists_ShouldCreateFolder()

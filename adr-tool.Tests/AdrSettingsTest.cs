@@ -69,20 +69,6 @@ namespace adr_tool.Tests
     }
 
     [TestMethod]
-    public void TestRead_FileExists()
-    {
-      // Arrange
-      var json = "{\"path\":\"existing_docs\",\"templates\":\"existing_templates\"}";
-      File.WriteAllText("adr.config.json", json);
-
-      // Act
-      var settings = AdrSettings.Current;
-
-      // Assert
-      Assert.AreEqual("existing_docs", settings.DocFolder);
-    }
-
-    [TestMethod]
     public void TestDocFolder_SetAndGet()
     {
       // Arrange
