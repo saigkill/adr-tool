@@ -1,0 +1,10 @@
+- name: Docs
+  href: docs/
+- name: API
+  href: api/
+- name: CODE_OF_CONDUCT.md
+  href: CODE_OF_CONDUCT.md
+- name: CONTRIBUTING.md
+  href: CONTRIBUTING.md
+- name: LICENSE.md
+  href: LICENSE.md

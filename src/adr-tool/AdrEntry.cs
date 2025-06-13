@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 
 using adr_tool;
+using adr_tool.Common;
 
 namespace adr
 {
@@ -24,6 +25,8 @@ namespace adr
     }
 
     public string Title { get; set; } = "Record Architecture Decisions";
+    public string[] SupersededLinks { get; set; }
+    public string[] AdditionalLinks { get; set; }
 
     public AdrEntry Write()
     {
@@ -51,6 +54,15 @@ namespace adr
       CreateDocumentsFolderIfNotExists();
 
       WriteAdrFile(fileNumber);
+
+      if (SupersededLinks != null)
+      {
+        LinkSupersedes(SupersededLinks);
+      }
+      if (AdditionalLinks != null)
+      {
+        LinksAdditional(AdditionalLinks);
+      }
     }
 
     private void WriteAdr()
@@ -65,6 +77,35 @@ namespace adr
       CreateDocumentsFolderIfNotExists();
 
       WriteInitialAdrFile(fileNumber);
+    }
+
+    private void LinkSupersedes(string[] links)
+    {
+      foreach (var link in links)
+      {
+        AddAdrLink.LinkAdr(link, "Superseded By", _fileName);
+        AdrRemoveStatus.Remove("Accepted", link);
+        AddAdrLink.LinkAdr(_fileName, "Supersedes", link);
+      }
+    }
+
+    private void LinksAdditional(string[] links)
+    {
+      foreach (var link in links)
+      {
+        string[] parts = link.Split(':');
+        if (parts.Length != 3)
+        {
+          Console.WriteLine("Invalid link format");
+          continue;
+        }
+        string target = parts[0];
+        string forwardLink = parts[1];
+        string reverseLink = parts[2];
+
+        AddAdrLink.LinkAdr(_fileName, forwardLink, target);
+        AddAdrLink.LinkAdr(target, reverseLink, _fileName);
+      }
     }
 
     private void WriteInitialAdrFile(int fileNumber)

@@ -1,5 +1,6 @@
 ﻿namespace adr_tool.Strategies;
 
+// _adr_generate_toc
 public class GenerateToc : IGenerateStrategy
 {
   private readonly string? _intro;

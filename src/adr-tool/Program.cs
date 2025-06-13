@@ -38,11 +38,11 @@ namespace adr_tool
 
       app.Command("list", (command) =>
       {
-        command.Description = "";
+        command.Description = "List available adrs.";
+        command.HelpOption(HelpOption);
         command.OnExecute(() =>
         {
-          string adrBinDir = AdrSettings.Current.DocFolder;
-          string[] files = Directory.GetFiles(adrBinDir, "*.md");
+          List<string> files = AdrList.FindAdrFiles();
           foreach (var file in files)
           {
             Console.WriteLine(file);
@@ -56,14 +56,26 @@ namespace adr_tool
       {
         command.Description = "";
         var title = command.Argument("title", "");
-        //var supersedes = command.Option("-s|--supersedes", "", CommandOptionType.MultipleValue);
+        var supersedes = command.Option("-s|--supersedes", "", CommandOptionType.MultipleValue);
+        var additionalLinks = command.Option("-l|--links", "", CommandOptionType.MultipleValue);
         command.HelpOption(HelpOption);
 
         command.OnExecute(() =>
         {
-          new AdrEntry(TemplateType.New) { Title = title.Value ?? "" }
+          if (supersedes.HasValue())
+          {
+            string[] supersededLinks = supersedes.Values.ToArray();
+            new AdrEntry(TemplateType.New) { Title = title.Value ?? "", SupersededLinks = supersededLinks }
               .Write()
               .Launch();
+          }
+          else
+          {
+            new AdrEntry(TemplateType.New) { Title = title.Value ?? "" }
+                .Write()
+                .Launch();
+          }
+
           return 0;
         });
       });
@@ -71,8 +83,10 @@ namespace adr_tool
       app.Command("link", (command) =>
       {
         command.Description = "";
+        var title = command
         command.OnExecute(() =>
         {
+          //AdrLink.Link();
           return 0;
         });
       });
@@ -98,11 +112,11 @@ namespace adr_tool
             generateStrategy.OutputStrategy(new GenerateToc(intro.ToString(), outro.ToString(), linkPrefix.ToString()));
             generateStrategy.Generate();
           }
-          //else if (graph != null)
-          //{
-          //  generateStrategy.OutputStrategy(new GenerateGraph(linkPrefix.ToString(), null));
-          //  generateStrategy.Generate();
-          //}
+          else if (graph != null)
+          {
+            generateStrategy.OutputStrategy(new GenerateGraph(linkPrefix.Values));
+            generateStrategy.Generate();
+          }
 
           return 0;
         });

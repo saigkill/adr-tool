@@ -3,15 +3,19 @@ A command-line tool for working with Architecture Decision Records (ADRs). This 
 
 ## Badges
 
+|What|Where|
+|---|---|
+| Code | https://dev.azure.com/saigkill/AdrTool |
+| Docs | https://moongladesm.blob.core.windows.net/docs/_AdrTool/index.html |
+
 |What|Status|
 |---|---|
-|Language|C#|
-|Framework|.NET 8 |
 |Continuous Integration Prod | [![Build status](https://dev.azure.com/saigkill/AdrTool/_apis/build/status/AdrTool-ASP.NET%20Core-CI-Prod)](https://dev.azure.com/saigkill/AdrTool/_build/latest?definitionId=68)|
 |Continuous Integration Stage | [![Build status](https://dev.azure.com/saigkill/AdrTool/_apis/build/status/AdrTool-.NET%20Desktop-CI)](https://dev.azure.com/saigkill/AdrTool/_build/latest?definitionId=67) |
 |Deployment Prod | [![Deployment status](https://vsrm.dev.azure.com/saigkill/_apis/public/Release/badge/d45d65b6-85d0-4829-a3b1-e6794b2ec791/2/2)](https://dev.azure.com/saigkill/AdrTool/_release?_a=releases&view=mine&definitionId=2) |
 |Deployment Stage | [![Deployment status](https://vsrm.dev.azure.com/saigkill/_apis/public/Release/badge/d45d65b6-85d0-4829-a3b1-e6794b2ec791/1/1)](https://dev.azure.com/saigkill/AdrTool/_release?definitionId=1&view=mine&_a=releases) |
 |Code Coverage | [![Coverage](https://img.shields.io/azure-devops/coverage/saigkill/AdrTool/68)](https://dev.azure.com/saigkill/AdrTool/_build/latest?definitionId=68) |
+|Code Quality | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=saigkill_AdrTool&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=saigkill_AdrTool) |
 |Bugreports|[![GitHub issues](https://img.shields.io/github/issues/saigkill/adr-tool)](https://github.com/saigkill/adr-tool/issues)
 |Bugreports|[![Board Status](https://dev.azure.com/saigkill/d45d65b6-85d0-4829-a3b1-e6794b2ec791/dfc2a578-bbce-40ef-8f27-a27be1669c61/_apis/work/boardbadge/e630e7d7-d883-4899-bcb7-b86f22e09010)](https://dev.azure.com/saigkill/d45d65b6-85d0-4829-a3b1-e6794b2ec791/_boards/board/t/dfc2a578-bbce-40ef-8f27-a27be1669c61/Stories/)|
 |Blog|[![Blog](https://img.shields.io/badge/Blog-Saigkill-blue)](https://saschamanns.de)|
@@ -22,7 +26,6 @@ A command-line tool for working with Architecture Decision Records (ADRs). This 
 
 
 File a bug report [on Github](https://github.com/saigkill/adr-tool/issues?q=sort%3Aupdated-desc+is%3Aissue+is%3Aopen).
-
 File a bug report [on Azure DevOps](https://dev.azure.com/saigkill/AdrTool/_workitems/recentlyupdated/).
 
 ## Deployment
