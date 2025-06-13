@@ -80,47 +80,47 @@ namespace adr_tool
         });
       });
 
-      app.Command("link", (command) =>
-      {
-        command.Description = "";
-        var title = command
-        command.OnExecute(() =>
-        {
-          //AdrLink.Link();
-          return 0;
-        });
-      });
+      //app.Command("link", (command) =>
+      //{
+      //  command.Description = "";
+      //  var title = command
+      //  command.OnExecute(() =>
+      //  {
+      //    //AdrLink.Link();
+      //    return 0;
+      //  });
+      //});
 
-      app.Command("generate", (command) =>
-      {
-        command.Description = "Generate some outputs like toc or graph.";
-        var toc = command.Argument("toc", "");
-        toc.Description = "Generate a table of contents";
-        var graph = command.Argument("graph", "");
-        graph.Description = "Generate a graph of the architecture decision records.";
-        var intro = command.Option("-i|--intro", "", CommandOptionType.SingleValue);
-        intro.Description = "Write some things, that can be used as intro.";
-        var outro = command.Option("-o|--outro", "", CommandOptionType.SingleValue);
-        outro.Description = "Write some things, that can be used as outro.";
-        var linkPrefix = command.Option("-p|--link-prefix", "", CommandOptionType.SingleValue);
-        linkPrefix.Description = "Prefix for links in the generated output.";
+      //app.Command("generate", (command) =>
+      //{
+      //  command.Description = "Generate some outputs like toc or graph.";
+      //  var toc = command.Argument("toc", "");
+      //  toc.Description = "Generate a table of contents";
+      //  var graph = command.Argument("graph", "");
+      //  graph.Description = "Generate a graph of the architecture decision records.";
+      //  var intro = command.Option("-i|--intro", "", CommandOptionType.SingleValue);
+      //  intro.Description = "Write some things, that can be used as intro.";
+      //  var outro = command.Option("-o|--outro", "", CommandOptionType.SingleValue);
+      //  outro.Description = "Write some things, that can be used as outro.";
+      //  var linkPrefix = command.Option("-p|--link-prefix", "", CommandOptionType.SingleValue);
+      //  linkPrefix.Description = "Prefix for links in the generated output.";
 
-        command.OnExecute(() =>
-        {
-          if (toc != null)
-          {
-            generateStrategy.OutputStrategy(new GenerateToc(intro.ToString(), outro.ToString(), linkPrefix.ToString()));
-            generateStrategy.Generate();
-          }
-          else if (graph != null)
-          {
-            generateStrategy.OutputStrategy(new GenerateGraph(linkPrefix.Values));
-            generateStrategy.Generate();
-          }
+      //  command.OnExecute(() =>
+      //  {
+      //    if (toc != null)
+      //    {
+      //      generateStrategy.OutputStrategy(new GenerateToc(intro.ToString(), outro.ToString(), linkPrefix.ToString()));
+      //      generateStrategy.Generate();
+      //    }
+      //    else if (graph != null)
+      //    {
+      //      generateStrategy.OutputStrategy(new GenerateGraph(linkPrefix.Values));
+      //      generateStrategy.Generate();
+      //    }
 
-          return 0;
-        });
-      });
+      //    return 0;
+      //  });
+      //});
 
       app.OnExecute(() =>
       {
