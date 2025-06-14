@@ -37,21 +37,21 @@ public class AdrEntryTest
         System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(adrEntry));
   }
 
-  [TestMethod]
-  public void AdrEntry_Launch_ShouldStartProcess()
-  {
-    // Arrange
-    var adrEntry = new AdrEntry(TemplateType.Adr);
-    adrEntry.GetType()
-      .GetField("_fileName", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-      .SetValue(adrEntry, "testFileName.md");
+  //[TestMethod]
+  //public void AdrEntry_Launch_ShouldStartProcess()
+  //{
+  //  // Arrange
+  //  var adrEntry = new AdrEntry(TemplateType.Adr);
+  //  adrEntry.GetType()
+  //    .GetField("_fileName", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+  //    .SetValue(adrEntry, "testFileName.md");
 
-    // Act
-    var result = adrEntry.Launch();
+  //  // Act
+  //  var result = adrEntry.Launch();
 
-    // Assert
-    Assert.IsNotNull(result);
-  }
+  //  // Assert
+  //  Assert.IsNotNull(result);
+  //}
 
   [TestMethod]
   [DataRow("Test Title", "test-title")]

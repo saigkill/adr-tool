@@ -11,9 +11,9 @@ namespace adr_tool.Tests
   public class GenerateHelperTest
   {
     [TestMethod]
-    [DataRow("C:\\Users\\sasch\\source\\repos\\adr-tool\\adr-tool.Tests\\TestFiles\\ValidTitle.md", "Sample Title")]
-    [DataRow("C:\\Users\\sasch\\source\\repos\\adr-tool\\adr-tool.Tests\\TestFiles\\NoTitle.md", "No title found")]
-    [DataRow("C:\\Users\\sasch\\source\\repos\\adr-tool\\adr-tool.Tests\\TestFiles\\InvalidFormat.md",
+    [DataRow("C:\\Temp\\TestFiles\\ValidTitle.md", "Sample Title")]
+    [DataRow("C:\\Temp\\TestFiles\\NoTitle.md", "No title found")]
+    [DataRow("C:\\Temp\\TestFiles\\InvalidFormat.md",
       "No title found")]
     public void GetTitle_TestCases(string filePath, string expectedTitle)
     {
@@ -29,13 +29,13 @@ namespace adr_tool.Tests
     public void Setup()
     {
       // Create test files
-      Directory.CreateDirectory("C:\\Users\\sasch\\source\\repos\\adr-tool\\adr-tool.Tests\\TestFiles");
+      Directory.CreateDirectory("C:\\Temp\\TestFiles");
 
-      File.WriteAllText("C:\\Users\\sasch\\source\\repos\\adr-tool\\adr-tool.Tests\\TestFiles\\ValidTitle.md",
+      File.WriteAllText("C:\\Temp\\TestFiles\\ValidTitle.md",
         "# 1. Sample Title");
-      File.WriteAllText("C:\\Users\\sasch\\source\\repos\\adr-tool\\adr-tool.Tests\\TestFiles\\NoTitle.md",
+      File.WriteAllText("C:\\Temp\\TestFiles\\NoTitle.md",
         "This file has no title");
-      File.WriteAllText("C:\\Users\\sasch\\source\\repos\\adr-tool\\adr-tool.Tests\\TestFiles\\InvalidFormat.md",
+      File.WriteAllText("C:\\Temp\\TestFiles\\InvalidFormat.md",
         "# Sample Title without number");
     }
 
@@ -43,7 +43,7 @@ namespace adr_tool.Tests
     public void Cleanup()
     {
       // Clean up test files
-      Directory.Delete("C:\\Users\\sasch\\source\\repos\\adr-tool\\adr-tool.Tests\\TestFiles", true);
+      Directory.Delete("C:\\Temp\\TestFiles", true);
     }
   }
 }
