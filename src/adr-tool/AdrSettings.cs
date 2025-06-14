@@ -8,7 +8,7 @@ namespace adr
   {
     private const string DefaultFileName = "adr.config.json";
 
-    private static AdrSettings _instance;
+    private static AdrSettings _instance = new AdrSettings();
 
     private AdrSettings()
     {

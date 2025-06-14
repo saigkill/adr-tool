@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.InteropServices;
 
 using adr_tool;
+using adr_tool.Common;
 
 namespace adr
 {
@@ -23,6 +25,8 @@ namespace adr
     }
 
     public string Title { get; set; } = "Record Architecture Decisions";
+    public string[] SupersededLinks { get; set; }
+    public string[] AdditionalLinks { get; set; }
 
     public AdrEntry Write()
     {
@@ -45,11 +49,20 @@ namespace adr
           : 1;
       _fileName = Path.Combine(
           _docFolder,
-          $"{fileNumber.ToString().PadLeft(4, '0')}-{SanitizeFileName(this.Title)}.md");
+          $"{fileNumber.ToString(CultureInfo.InvariantCulture).PadLeft(4, '0')}-{SanitizeFileName(this.Title)}.md");
 
       CreateDocumentsFolderIfNotExists();
 
       WriteAdrFile(fileNumber);
+
+      if (SupersededLinks != null)
+      {
+        LinkSupersedes(SupersededLinks);
+      }
+      if (AdditionalLinks != null)
+      {
+        LinksAdditional(AdditionalLinks);
+      }
     }
 
     private void WriteAdr()
@@ -59,11 +72,40 @@ namespace adr
           : 1;
       _fileName = Path.Combine(
           this._docFolder,
-          $"{fileNumber.ToString().PadLeft(4, '0')}-{SanitizeFileName(this.Title)}.md");
+          $"{fileNumber.ToString(CultureInfo.InvariantCulture).PadLeft(4, '0')}-{SanitizeFileName(this.Title)}.md");
 
       CreateDocumentsFolderIfNotExists();
 
       WriteInitialAdrFile(fileNumber);
+    }
+
+    private void LinkSupersedes(string[] links)
+    {
+      foreach (var link in links)
+      {
+        AddAdrLink.LinkAdr(link, "Superseded By", _fileName);
+        AdrRemoveStatus.Remove("Accepted", link);
+        AddAdrLink.LinkAdr(_fileName, "Supersedes", link);
+      }
+    }
+
+    private void LinksAdditional(string[] links)
+    {
+      foreach (var link in links)
+      {
+        string[] parts = link.Split(':');
+        if (parts.Length != 3)
+        {
+          Console.WriteLine("Invalid link format");
+          continue;
+        }
+        string target = parts[0];
+        string forwardLink = parts[1];
+        string reverseLink = parts[2];
+
+        AddAdrLink.LinkAdr(_fileName, forwardLink, target);
+        AddAdrLink.LinkAdr(target, reverseLink, _fileName);
+      }
     }
 
     private void WriteInitialAdrFile(int fileNumber)
@@ -72,7 +114,7 @@ namespace adr
       {
         writer.WriteLine($"# {fileNumber}. {this.Title}");
         writer.WriteLine();
-        writer.WriteLine(DateTime.Today.ToString("yyyy-MM-dd"));
+        writer.WriteLine(DateTime.Today.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
         writer.WriteLine();
         writer.WriteLine("## Status");
         writer.WriteLine();
@@ -99,7 +141,7 @@ namespace adr
       {
         writer.WriteLine($"# {fileNumber}. {this.Title}");
         writer.WriteLine();
-        writer.WriteLine(DateTime.Today.ToString("yyyy-MM-dd"));
+        writer.WriteLine(DateTime.Today.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
         writer.WriteLine();
         writer.WriteLine("## Status");
         writer.WriteLine();
@@ -164,7 +206,7 @@ namespace adr
       var files =
           from file in new DirectoryInfo(docFolder).GetFiles("*.md", SearchOption.TopDirectoryOnly)
           let fileNum = file.Name.Substring(0, 4)
-          where int.TryParse(fileNum, out fileNumOut)
+          where int.TryParse(fileNum, CultureInfo.InvariantCulture, out fileNumOut)
           select fileNumOut;
       var maxFileNum = files.Any() ? files.Max() : 0;
       return maxFileNum + 1;
@@ -174,7 +216,7 @@ namespace adr
     {
       return title
           .Replace(' ', '-')
-          .ToLower();
+          .ToLower(CultureInfo.InvariantCulture);
     }
   }
 }

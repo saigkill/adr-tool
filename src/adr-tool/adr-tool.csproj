@@ -10,11 +10,11 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>A dotnet tool for working with Architecture Decision Records (ADRs).</Title>
     <Version>1.1.0.0</Version>
-    <Authors>Sascha Manns</Authors>
+    <Authors>saschaa Manns</Authors>
     <Description>A dotnet tool for working with Architecture Decision Records (ADRs).</Description>
-    <Copyright>(c) 2024 by Sascha Manns</Copyright>
+    <Copyright>(c) 2024 by saschaa Manns</Copyright>
     <PackageProjectUrl>https://dev.azure.com/saigkill/AdrTool</PackageProjectUrl>
-    <RepositoryUrl>https://saigkill@dev.azure.com/saigkill/AdrTool/_git/AdrTool</RepositoryUrl>
+    <RepositoryUrl>https://dev.azure.com/saigkill/AdrTool/_git/AdrTool</RepositoryUrl>
     <PackageTags>tool adr architecture decision records</PackageTags>
     <PackAsTool>True</PackAsTool>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -23,34 +23,24 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>icons8-decision-96.png</PackageIcon>
     <ToolCommandName>adr</ToolCommandName>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\Assets\icons8-decision-96.png">
+    <None Include="..\..\Assets\icons8-decision-96.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="..\README.md">
+    <None Include="..\..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Meziantou.Analyzer" Version="2.0.168">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Roslynator.Analyzers" Version="4.12.6">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.32.0.97167">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 
 </Project>
