@@ -14,7 +14,7 @@
     <Description>A dotnet tool for working with Architecture Decision Records (ADRs).</Description>
     <Copyright>(c) 2024 by saschaa Manns</Copyright>
     <PackageProjectUrl>https://dev.azure.com/saigkill/AdrTool</PackageProjectUrl>
-    <RepositoryUrl>https://saigkill@dev.azure.com/saigkill/AdrTool/_git/AdrTool</RepositoryUrl>
+    <RepositoryUrl>https://dev.azure.com/saigkill/AdrTool/_git/AdrTool</RepositoryUrl>
     <PackageTags>tool adr architecture decision records</PackageTags>
     <PackAsTool>True</PackAsTool>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -23,6 +23,8 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>icons8-decision-96.png</PackageIcon>
     <ToolCommandName>adr</ToolCommandName>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
