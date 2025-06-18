@@ -1,6 +1,4 @@
-﻿using adr;
-
-namespace adr_tool.Common;
+﻿namespace adr_tool.Common;
 
 // _adr_add_link
 public static class AddAdrLink

@@ -8,3 +8,7 @@
   href: CONTRIBUTING.md
 - name: LICENSE.md
   href: LICENSE.md
+- name: SECURITY.md
+  href: SECURITY.md
+- name: RELEASE_NOTES.md
+  href: RELEASE_NOTES.md

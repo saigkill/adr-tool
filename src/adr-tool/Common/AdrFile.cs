@@ -6,7 +6,11 @@ internal static class AdrFile
   {
     List<string> output = AdrList.FindAdrFiles();
     var matchingLine = output.FirstOrDefault(line => line.Contains(searchTerm));
-    return matchingLine;
+    if (matchingLine != null)
+    {
+      return matchingLine;
+    }
+    throw new ArgumentException($"No ADR file found containing '{searchTerm}'", nameof(searchTerm));
   }
 
   // _adr_title

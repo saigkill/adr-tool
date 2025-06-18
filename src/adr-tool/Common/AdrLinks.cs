@@ -8,17 +8,15 @@ internal static class AdrLinks
   {
     var search = AdrStatus.GetStatus(searchstatus);
     var regex = new Regex(@"^(.+) \[.*\]\(0*([1-9][0-9]*).*\)");
-    using (var reader = new StringReader(search))
+    using var reader = new StringReader(search);
+    string line;
+    while ((line = reader.ReadLine() ?? throw new InvalidOperationException("Error while reading Fileheader for getting Links")) != null)
     {
-      string line;
-      while ((line = reader.ReadLine()) != null)
+      var match = regex.Match(line);
+      if (match.Success)
       {
-        var match = regex.Match(line);
-        if (match.Success)
-        {
-          string result = $"{match.Groups[2].Value}={match.Groups[1].Value}";
-          Console.WriteLine(result);
-        }
+        string result = $"{match.Groups[2].Value}={match.Groups[1].Value}";
+        Console.WriteLine(result);
       }
     }
   }
