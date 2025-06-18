@@ -2,7 +2,7 @@
 
 public class GenerateOutput
 {
-  private IGenerateStrategy Strategy { get; set; }
+  private IGenerateStrategy Strategy { get; set; } = null!;
 
   public void OutputStrategy(IGenerateStrategy strategy)
   {

@@ -1,67 +1,62 @@
-﻿using adr_tool;
+﻿using Newtonsoft.Json;
 
-using Newtonsoft.Json;
+namespace adr_tool;
 
-namespace adr
+internal class AdrSettings
 {
-  internal class AdrSettings
+  private const string DefaultFileName = "adr.config.json";
+
+  private static AdrSettings _instance = new AdrSettings();
+
+  private AdrSettings()
   {
-    private const string DefaultFileName = "adr.config.json";
+  }
 
-    private static AdrSettings _instance = new AdrSettings();
+  public static AdrSettings Current => _instance ??= Read(new AdrSettings());
 
-    private AdrSettings()
+  public string DocFolder { get; set; } = string.Empty;
+
+  public string TemplateFolder { get; set; } = string.Empty;
+
+  public AdrSettings Write()
+  {
+    using (var stream = File.CreateText(DefaultFileName))
     {
+      var value = new
+      {
+        path = this.DocFolder,
+        templates = this.TemplateFolder
+      };
+      var serializer = new JsonSerializer
+      {
+        Formatting = Formatting.Indented,
+        NullValueHandling = NullValueHandling.Ignore
+      };
+      serializer.Serialize(stream, value);
     }
 
-    public static AdrSettings Current => _instance ??= Read(new AdrSettings());
+    return this;
+  }
 
-    public string DocFolder { get; set; }
-
-    public string TemplateFolder { get; set; }
-
-    public AdrSettings Write()
+  private static AdrSettings Read(AdrSettings settings)
+  {
+    if (!File.Exists(DefaultFileName))
     {
-      using (var stream = File.CreateText(DefaultFileName))
-      {
-        var value = new
-        {
-          path = this.DocFolder,
-          templates = this.TemplateFolder
-        };
-        var serializer = new JsonSerializer
-        {
-          Formatting = Formatting.Indented,
-          NullValueHandling = NullValueHandling.Ignore
-        };
-        serializer.Serialize(stream, value);
-      }
-
-      return this;
+      settings.DocFolder = GlobalVariables.AdrFolder;
+      settings.TemplateFolder = "";
+      return settings;
     }
 
-    private static AdrSettings Read(AdrSettings settings)
+    using var stream = File.OpenText(DefaultFileName);
+    var serializer = new JsonSerializer
     {
-      if (!File.Exists(DefaultFileName))
-      {
-        settings.DocFolder = GlobalVariables.AdrFolder;
-        settings.TemplateFolder = "";
-        return settings;
-      }
+      Formatting = Formatting.Indented,
+      NullValueHandling = NullValueHandling.Ignore
+    };
 
-      using (var stream = File.OpenText(DefaultFileName))
-      {
-        var serializer = new JsonSerializer
-        {
-          Formatting = Formatting.Indented,
-          NullValueHandling = NullValueHandling.Ignore
-        };
-
-        var value = (dynamic)serializer.Deserialize(stream, new { path = "", template = "" }.GetType());
-        settings.DocFolder = value.path;
-        settings.TemplateFolder = value.template;
-        return settings;
-      }
-    }
+    var value = (dynamic)serializer.Deserialize(stream, new { path = "", template = "" }.GetType())!;
+    settings.DocFolder = value.path;
+    settings.TemplateFolder = value.template;
+    return settings;
   }
 }

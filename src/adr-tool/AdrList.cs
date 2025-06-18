@@ -1,7 +1,5 @@
 ﻿using System.Text.RegularExpressions;
 
-using adr;
-
 namespace adr_tool;
 internal class AdrList
 {

@@ -3,6 +3,7 @@
 ## HELPING OUT CODING
 
 * Help coding on: https://dev.azure.com/saigkill/AdrTool
+* Just ask for a invite to the repository on Azure DevOps. Mail [me](mailto:himself@saschamanns.de).
 
 ## IDEAS
 
@@ -16,10 +17,10 @@
 * Write a good explanation of what the patch does.
 * It is better to use git format-patch command: git format-patch HEAD^
 
-## COOL HACKS via Pullrequest (preferred)
+## COOL HACKS via Pullrequest
 
 * Fork the repository on Azure DevOps
-* Create a new branch from the `develop` branch
+* Create a new branch based on the `develop` branch
 * Make your changes
 * Commit your changes
 * Push your changes to your fork

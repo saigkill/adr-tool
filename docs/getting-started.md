@@ -1,5 +1,10 @@
 # Getting Started
 
+First, ensure you have the `adr-tools` installed. You can install it using the following command in your terminal or command prompt:
+```powershell
+dotnet tool install --global Saigkill.adr-tool.CLI
+```
+
 To initialize the ADR directory, run the following command in the powershell or cmd:
 ```powershell
 adr init

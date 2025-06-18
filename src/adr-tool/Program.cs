@@ -1,133 +1,130 @@
-﻿using adr;
-
-using adr_tool.Strategies;
+﻿using adr_tool.Strategies;
 
 using Microsoft.Extensions.CommandLineUtils;
 
-namespace adr_tool
+namespace adr_tool;
+
+internal static class Program
 {
-  internal static class Program
+  private const string HelpOption = "-?|-h|--help";
+
+  private static void Main(string[] args)
   {
-    private const string HelpOption = "-?|-h|--help";
+    var generateStrategy = new GenerateOutput();
+    var app = new CommandLineApplication();
+    app.Name = "adr";
+    app.Description = "A simply tool to handle architecture decision records.";
 
-    private static void Main(string[] args)
+    app.HelpOption(HelpOption);
+
+    app.Command("init", (command) =>
     {
-      var generateStrategy = new GenerateOutput();
-      var app = new CommandLineApplication();
-      app.Name = "adr";
-      app.Description = "A simply tool to handle architecture decision records.";
-
-      app.HelpOption(HelpOption);
-
-      app.Command("init", (command) =>
+      command.Description = "Creates the directory for adr's and writes first adr.";
+      var directory = command.Argument("[directory]", "");
+      command.HelpOption(HelpOption);
+      command.OnExecute(() =>
       {
-        command.Description = "Creates the directory for adr's and writes first adr.";
-        var directory = command.Argument("[directory]", "");
-        command.HelpOption(HelpOption);
-        command.OnExecute(() =>
-        {
-          var settings = AdrSettings.Current;
-          settings.DocFolder = directory.Value ?? settings.DocFolder;
-          settings.Write();
-          new AdrEntry(TemplateType.Adr)
-              .Write()
-              .Launch();
-          return 0;
-        });
-      });
-
-      app.Command("list", (command) =>
-      {
-        command.Description = "List available adrs.";
-        command.HelpOption(HelpOption);
-        command.OnExecute(() =>
-        {
-          List<string> files = AdrList.FindAdrFiles();
-          foreach (var file in files)
-          {
-            Console.WriteLine(file);
-          }
-
-          return 0;
-        });
-      });
-
-      app.Command("new", (command) =>
-      {
-        command.Description = "";
-        var title = command.Argument("title", "");
-        var supersedes = command.Option("-s|--supersedes", "", CommandOptionType.MultipleValue);
-        var additionalLinks = command.Option("-l|--links", "", CommandOptionType.MultipleValue);
-        command.HelpOption(HelpOption);
-
-        command.OnExecute(() =>
-        {
-          if (supersedes.HasValue())
-          {
-            string[] supersededLinks = supersedes.Values.ToArray();
-            new AdrEntry(TemplateType.New) { Title = title.Value ?? "", SupersededLinks = supersededLinks }
-              .Write()
-              .Launch();
-          }
-          else
-          {
-            new AdrEntry(TemplateType.New) { Title = title.Value ?? "" }
-                .Write()
-                .Launch();
-          }
-
-          return 0;
-        });
-      });
-
-      //app.Command("link", (command) =>
-      //{
-      //  command.Description = "";
-      //  var title = command
-      //  command.OnExecute(() =>
-      //  {
-      //    //AdrLink.Link();
-      //    return 0;
-      //  });
-      //});
-
-      //app.Command("generate", (command) =>
-      //{
-      //  command.Description = "Generate some outputs like toc or graph.";
-      //  var toc = command.Argument("toc", "");
-      //  toc.Description = "Generate a table of contents";
-      //  var graph = command.Argument("graph", "");
-      //  graph.Description = "Generate a graph of the architecture decision records.";
-      //  var intro = command.Option("-i|--intro", "", CommandOptionType.SingleValue);
-      //  intro.Description = "Write some things, that can be used as intro.";
-      //  var outro = command.Option("-o|--outro", "", CommandOptionType.SingleValue);
-      //  outro.Description = "Write some things, that can be used as outro.";
-      //  var linkPrefix = command.Option("-p|--link-prefix", "", CommandOptionType.SingleValue);
-      //  linkPrefix.Description = "Prefix for links in the generated output.";
-
-      //  command.OnExecute(() =>
-      //  {
-      //    if (toc != null)
-      //    {
-      //      generateStrategy.OutputStrategy(new GenerateToc(intro.ToString(), outro.ToString(), linkPrefix.ToString()));
-      //      generateStrategy.Generate();
-      //    }
-      //    else if (graph != null)
-      //    {
-      //      generateStrategy.OutputStrategy(new GenerateGraph(linkPrefix.Values));
-      //      generateStrategy.Generate();
-      //    }
-
-      //    return 0;
-      //  });
-      //});
-
-      app.OnExecute(() =>
-      {
-        app.ShowHelp();
+        var settings = AdrSettings.Current;
+        settings.DocFolder = directory.Value ?? settings.DocFolder;
+        settings.Write();
+        new AdrEntry(TemplateType.Adr)
+          .Write()
+          .Launch();
         return 0;
       });
-      app.Execute(args);
-    }
+    });
+
+    app.Command("list", (command) =>
+    {
+      command.Description = "List available adrs.";
+      command.HelpOption(HelpOption);
+      command.OnExecute(() =>
+      {
+        List<string> files = AdrList.FindAdrFiles();
+        foreach (var file in files)
+        {
+          Console.WriteLine(file);
+        }
+
+        return 0;
+      });
+    });
+
+    app.Command("new", (command) =>
+    {
+      command.Description = "";
+      var title = command.Argument("title", "");
+      var supersedes = command.Option("-s|--supersedes", "", CommandOptionType.MultipleValue);
+      var additionalLinks = command.Option("-l|--links", "", CommandOptionType.MultipleValue);
+      command.HelpOption(HelpOption);
+
+      command.OnExecute(() =>
+      {
+        if (supersedes.HasValue())
+        {
+          string[] supersededLinks = supersedes.Values.ToArray();
+          new AdrEntry(TemplateType.New) { Title = title.Value ?? "", SupersededLinks = supersededLinks }
+            .Write()
+            .Launch();
+        }
+        else
+        {
+          new AdrEntry(TemplateType.New) { Title = title.Value ?? "" }
+            .Write()
+            .Launch();
+        }
+
+        return 0;
+      });
+    });
+
+    //app.Command("link", (command) =>
+    //{
+    //  command.Description = "";
+    //  var title = command
+    //  command.OnExecute(() =>
+    //  {
+    //    //AdrLink.Link();
+    //    return 0;
+    //  });
+    //});
+
+    //app.Command("generate", (command) =>
+    //{
+    //  command.Description = "Generate some outputs like toc or graph.";
+    //  var toc = command.Argument("toc", "");
+    //  toc.Description = "Generate a table of contents";
+    //  var graph = command.Argument("graph", "");
+    //  graph.Description = "Generate a graph of the architecture decision records.";
+    //  var intro = command.Option("-i|--intro", "", CommandOptionType.SingleValue);
+    //  intro.Description = "Write some things, that can be used as intro.";
+    //  var outro = command.Option("-o|--outro", "", CommandOptionType.SingleValue);
+    //  outro.Description = "Write some things, that can be used as outro.";
+    //  var linkPrefix = command.Option("-p|--link-prefix", "", CommandOptionType.SingleValue);
+    //  linkPrefix.Description = "Prefix for links in the generated output.";
+
+    //  command.OnExecute(() =>
+    //  {
+    //    if (toc != null)
+    //    {
+    //      generateStrategy.OutputStrategy(new GenerateToc(intro.ToString(), outro.ToString(), linkPrefix.ToString()));
+    //      generateStrategy.Generate();
+    //    }
+    //    else if (graph != null)
+    //    {
+    //      generateStrategy.OutputStrategy(new GenerateGraph(linkPrefix.Values));
+    //      generateStrategy.Generate();
+    //    }
+
+    //    return 0;
+    //  });
+    //});
+
+    app.OnExecute(() =>
+    {
+      app.ShowHelp();
+      return 0;
+    });
+    app.Execute(args);
   }
 }

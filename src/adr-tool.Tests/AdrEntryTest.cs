@@ -1,7 +1,5 @@
 ﻿using System.IO;
 
-using adr;
-
 using JetBrains.Annotations;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;

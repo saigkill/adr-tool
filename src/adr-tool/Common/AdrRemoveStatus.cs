@@ -14,7 +14,7 @@ public static class AdrRemoveStatus
     using (var writer = new StreamWriter(tempFile))
     {
       string line;
-      while ((line = reader.ReadLine()) != null)
+      while ((line = reader.ReadLine() ?? throw new InvalidOperationException("Error while reading tempFile")) != null)
       {
         if (Regex.IsMatch(line, @"^##"))
         {
