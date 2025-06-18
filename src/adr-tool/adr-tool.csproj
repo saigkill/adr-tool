@@ -10,7 +10,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>A dotnet tool for working with Architecture Decision Records (ADRs).</Title>
     <Version>1.1.0.0</Version>
-    <Authors>saschaa Manns</Authors>
+    <Authors>Sascha Manns</Authors>
     <Description>A dotnet tool for working with Architecture Decision Records (ADRs).</Description>
     <Copyright>(c) 2024 by saschaa Manns</Copyright>
     <PackageProjectUrl>https://dev.azure.com/saigkill/AdrTool</PackageProjectUrl>
