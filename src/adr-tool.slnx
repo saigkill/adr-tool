@@ -1,7 +1,0 @@
-<Solution>
-  <Project Path="adr-tool.Tests\adr-tool.Tests.csproj" Type="C#" />
-  <Project Path="adr-tool\adr-tool.csproj" Type="C#" />
-  <Properties Name="Visual Studio">
-    <Property Name="OpenWith" Value="Visual Studio Version 17" />
-  </Properties>
-</Solution>

@@ -18,7 +18,7 @@ A command-line tool for working with Architecture Decision Records (ADRs). This 
 |Code Quality | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=saigkill_adr-tool&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=saigkill_adr-tool) |
 |Best Practices | [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/10757/badge)](https://www.bestpractices.dev/projects/10757) |
 |Bugreports|[![GitHub issues](https://img.shields.io/github/issues/saigkill/adr-tool)](https://github.com/saigkill/adr-tool/issues)
-|Blog|[![Blog](https://img.shields.io/badge/Blog-Saigkill-blue)](https://saschaamanns.de)|
+|Blog|[![Blog](https://img.shields.io/badge/Blog-Saigkill-blue)](https://saschamanns.de)|
 
 |Name|Status|Version|
 |---|---|---|
