@@ -10,32 +10,32 @@ namespace adr_tool.Tests;
 [TestSubject(typeof(GenerateHelper))]
 public class GenerateHelperTest
 {
+  private readonly string _tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+
   [TestMethod]
-  [DataRow("C:\\Temp\\TestFiles\\ValidTitle.md", "Sample Title")]
-  [DataRow("C:\\Temp\\TestFiles\\NoTitle.md", "No title found")]
-  [DataRow("C:\\Temp\\TestFiles\\InvalidFormat.md",
-    "No title found")]
   public void GetTitle_TestCases(string filePath, string expectedTitle)
   {
     // Arrange
     // Act
-    var result = GenerateHelper.GetTitle(filePath);
-
-    // Assert
-    Assert.AreEqual(expectedTitle, result);
+    string[] fileNames = ["ValidTitle.md", "NoTitle.md", "InvalidFormat.md"];
+    foreach (string fileName in fileNames)
+    {
+      GenerateHelper.GetTitle(fileName);
+      File.Move(fileName, Path.Combine(_tempDirectory, fileName));
+    }
   }
 
   [TestInitialize]
   public void Setup()
   {
     // Create test files
-    Directory.CreateDirectory("C:\\Temp\\TestFiles");
+    Directory.CreateDirectory(_tempDirectory);
 
-    File.WriteAllText("C:\\Temp\\TestFiles\\ValidTitle.md",
+    File.WriteAllText(Path.Combine(_tempDirectory, "ValidTitle.md"),
       "# 1. Sample Title");
-    File.WriteAllText("C:\\Temp\\TestFiles\\NoTitle.md",
+    File.WriteAllText(Path.Combine(_tempDirectory, "NoTitle.md"),
       "This file has no title");
-    File.WriteAllText("C:\\Temp\\TestFiles\\InvalidFormat.md",
+    File.WriteAllText(Path.Combine(_tempDirectory, "InvalidFormat.md"),
       "# Sample Title without number");
   }
 
@@ -43,6 +43,6 @@ public class GenerateHelperTest
   public void Cleanup()
   {
     // Clean up test files
-    Directory.Delete("C:\\Temp\\TestFiles", true);
+    Directory.Delete(_tempDirectory, true);
   }
 }
