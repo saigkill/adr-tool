@@ -62,8 +62,8 @@ public class AdrSettingsTest
     // Assert
     var json = File.ReadAllText("adr.config.json");
     dynamic value = JsonConvert.DeserializeObject(json);
-    Assert.AreEqual("test_docs", (string)value.path);
-    Assert.AreEqual("test_templates", (string)value.templates);
+    Assert.AreEqual("test_docs", (string)value?.path);
+    Assert.AreEqual("test_templates", (string)value?.templates);
   }
 
   [TestMethod]

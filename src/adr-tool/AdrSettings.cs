@@ -38,25 +38,25 @@ internal class AdrSettings
     return this;
   }
 
-  private static AdrSettings Read(AdrSettings settings)
-  {
-    if (!File.Exists(DefaultFileName))
-    {
-      settings.DocFolder = GlobalVariables.AdrFolder;
-      settings.TemplateFolder = "";
-      return settings;
-    }
+  //private static AdrSettings Read(AdrSettings settings)
+  //{
+  //  if (!File.Exists(DefaultFileName))
+  //  {
+  //    settings.DocFolder = GlobalVariables.AdrFolder;
+  //    settings.TemplateFolder = "";
+  //    return settings;
+  //  }
 
-    using var stream = File.OpenText(DefaultFileName);
-    var serializer = new JsonSerializer
-    {
-      Formatting = Formatting.Indented,
-      NullValueHandling = NullValueHandling.Ignore
-    };
+  //  using var stream = File.OpenText(DefaultFileName);
+  //  var serializer = new JsonSerializer
+  //  {
+  //    Formatting = Formatting.Indented,
+  //    NullValueHandling = NullValueHandling.Ignore
+  //  };
 
-    var value = (dynamic)serializer.Deserialize(stream, new { path = "", template = "" }.GetType())!;
-    settings.DocFolder = value.path;
-    settings.TemplateFolder = value.template;
-    return settings;
-  }
+  //  var value = (dynamic)serializer.Deserialize(stream, new { path = "", template = "" }.GetType())!;
+  //  settings.DocFolder = value.path;
+  //  settings.TemplateFolder = value.template;
+  //  return settings;
+  //}
 }

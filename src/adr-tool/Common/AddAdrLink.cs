@@ -7,8 +7,8 @@ public static class AddAdrLink
   {
     //var adrBinDir = AdrSettings.Current.DocFolder;
 
-    var sourceAdr = AdrFile.GetFile(source);
-    var targetAdr = AdrFile.GetFile(target);
+    //var sourceAdr = AdrFile.GetFile(source);
+    //var targetAdr = AdrFile.GetFile(target);
     var targetTitle = AdrFile.GetTitle(target);
     var lines = File.ReadAllLines(source);
     using (var writer = new StreamWriter(source + ".tmp"))

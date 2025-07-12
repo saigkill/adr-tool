@@ -58,7 +58,7 @@ public class AdrEntryTest
   {
     // Act
     var result = typeof(AdrEntry)
-        .GetMethod("SanitizeFileName", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)
+        .GetMethod("SanitizeFileName", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)?
         .Invoke(null, new object[] { title });
 
     // Assert
@@ -92,13 +92,13 @@ public class AdrEntryTest
     var adrEntry = new AdrEntry(TemplateType.Adr);
     var docFolder = "testDocFolder";
     adrEntry.GetType()
-      .GetField("_docFolder", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+      .GetField("_docFolder", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?
       .SetValue(adrEntry, docFolder);
 
     // Act
     adrEntry.GetType()
       .GetMethod("CreateDocumentsFolderIfNotExists",
-        System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+        System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?
       .Invoke(adrEntry, new object[] { });
 
     // Assert
