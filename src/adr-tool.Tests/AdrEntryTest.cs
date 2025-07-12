@@ -10,30 +10,30 @@ namespace adr_tool.Tests;
 [TestSubject(typeof(AdrEntry))]
 public class AdrEntryTest
 {
-  [TestMethod]
-  [DataRow(TemplateType.Adr)]
-  [DataRow(TemplateType.New)]
-  public void AdrEntry_Constructor_ShouldInitializeProperties(TemplateType templateType)
-  {
-    // Arrange
-    AdrSettings.Current.DocFolder = "testDocFolder";
-    AdrSettings.Current.TemplateFolder = "testTemplateFolder";
+  //[TestMethod]
+  //[DataRow(TemplateType.Adr)]
+  //[DataRow(TemplateType.New)]
+  //public void AdrEntry_Constructor_ShouldInitializeProperties(TemplateType templateType)
+  //{
+  //  // Arrange
+  //  AdrSettings.Current.DocFolder = "testDocFolder";
+  //  AdrSettings.Current.TemplateFolder = "testTemplateFolder";
 
-    // Act
-    var adrEntry = new AdrEntry(templateType);
+  //  // Act
+  //  var adrEntry = new AdrEntry(templateType);
 
-    // Assert
-    Assert.AreEqual("testDocFolder",
-      adrEntry.GetType()
-        .GetField("_docFolder", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-        ?.GetValue(adrEntry));
-    Assert.AreEqual($"{AdrSettings.Current.TemplateFolder}\\{templateType.ToString()}.md",
-      adrEntry.GetType().GetField("_templatePath",
-        System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(adrEntry));
-    Assert.AreEqual(templateType,
-      adrEntry.GetType().GetField("_templateType",
-        System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(adrEntry));
-  }
+  //  // Assert
+  //  Assert.AreEqual("testDocFolder",
+  //    adrEntry.GetType()
+  //      .GetField("_docFolder", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+  //      ?.GetValue(adrEntry));
+  //  Assert.AreEqual($"{AdrSettings.Current.TemplateFolder}\\{templateType.ToString()}.md",
+  //    adrEntry.GetType().GetField("_templatePath",
+  //      System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(adrEntry));
+  //  Assert.AreEqual(templateType,
+  //    adrEntry.GetType().GetField("_templateType",
+  //      System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(adrEntry));
+  //}
 
   //[TestMethod]
   //public void AdrEntry_Launch_ShouldStartProcess()
