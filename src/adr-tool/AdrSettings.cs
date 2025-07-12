@@ -6,7 +6,7 @@ internal class AdrSettings
 {
   private const string DefaultFileName = "adr.config.json";
 
-  private static AdrSettings _instance = new AdrSettings();
+  private static readonly AdrSettings _instance = new AdrSettings();
 
   private AdrSettings()
   {

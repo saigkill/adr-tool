@@ -8,7 +8,7 @@ internal class AdrDir
   private string _reldir = ".";
   private string MkRel(string path)
   {
-    var d = Path.Combine(_reldir, path);
+    var d = Path.Join(_reldir, path);
     return d.StartsWith("./") ? d.Substring(2) : d;
   }
   private string AbsDir(string path)
@@ -46,7 +46,7 @@ internal class AdrDir
       }
       else
       {
-        _reldir = Path.Combine(_reldir, "..");
+        _reldir = Path.Join(_reldir, "..");
       }
     }
     Console.WriteLine("doc/adr");

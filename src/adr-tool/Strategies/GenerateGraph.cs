@@ -79,18 +79,17 @@ internal class GenerateGraph : IGenerateStrategy
     {
       var n = int.Parse(Index(f));
       var links = AdrList.FindAdrFiles();
-      foreach (var link in links)
+      foreach (var link in links.Where(l => l.EndsWith(" by ")))
       {
-        if (!link.EndsWith(" by"))
+        var match = Regex.Match(link, @"^([0-9]+)=(.+)$");
+        if (!match.Success)
         {
-          var match = Regex.Match(link, @"^([0-9]+)=(.+)$");
-          if (match.Success)
-          {
-            var targetIndex = match.Groups[1].Value;
-            var label = match.Groups[2].Value;
-            Console.WriteLine($"  _{n} -> _{targetIndex} [label=\"{label}\", weight=0];");
-          }
+          continue;
         }
+
+        var targetIndex = match.Groups[1].Value;
+        var label = match.Groups[2].Value;
+        Console.WriteLine($"  _{n} -> _{targetIndex} [label=\"{label}\", weight=0];");
       }
     }
     Console.WriteLine("}");

@@ -47,7 +47,7 @@ internal class AdrEntry
     var fileNumber = Directory.Exists(this._docFolder)
       ? GetNextFileNumber(this._docFolder)
       : 1;
-    _fileName = Path.Combine(
+    _fileName = Path.Join(
       _docFolder,
       $"{fileNumber.ToString(CultureInfo.InvariantCulture).PadLeft(4, '0')}-{SanitizeFileName(this.Title)}.md");
 
@@ -65,7 +65,7 @@ internal class AdrEntry
     var fileNumber = Directory.Exists(this._docFolder)
       ? GetNextFileNumber(this._docFolder)
       : 1;
-    _fileName = Path.Combine(
+    _fileName = Path.Join(
       this._docFolder,
       $"{fileNumber.ToString(CultureInfo.InvariantCulture).PadLeft(4, '0')}-{SanitizeFileName(this.Title)}.md");
 
