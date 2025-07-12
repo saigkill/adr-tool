@@ -12,7 +12,7 @@ internal class AdrSettings
   {
   }
 
-  public static AdrSettings Current => _instance ??= Read(new AdrSettings());
+  public static AdrSettings Current => _instance;
 
   public string DocFolder { get; set; } = string.Empty;
 

@@ -1,6 +1,4 @@
-﻿using adr_tool.Strategies;
-
-using Microsoft.Extensions.CommandLineUtils;
+﻿using Microsoft.Extensions.CommandLineUtils;
 
 namespace adr_tool;
 
@@ -10,7 +8,7 @@ internal static class Program
 
   private static void Main(string[] args)
   {
-    var generateStrategy = new GenerateOutput();
+    //var generateStrategy = new GenerateOutput();
     var app = new CommandLineApplication();
     app.Name = "adr";
     app.Description = "A simply tool to handle architecture decision records.";
@@ -55,7 +53,7 @@ internal static class Program
       command.Description = "";
       var title = command.Argument("title", "");
       var supersedes = command.Option("-s|--supersedes", "", CommandOptionType.MultipleValue);
-      var additionalLinks = command.Option("-l|--links", "", CommandOptionType.MultipleValue);
+      //var additionalLinks = command.Option("-l|--links", "", CommandOptionType.MultipleValue);
       command.HelpOption(HelpOption);
 
       command.OnExecute(() =>

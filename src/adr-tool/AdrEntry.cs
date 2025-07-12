@@ -10,7 +10,7 @@ internal class AdrEntry
 {
   private readonly string _docFolder;
 
-  private readonly string _templatePath;
+  //private readonly string _templatePath;
 
   private readonly TemplateType _templateType;
 
@@ -20,7 +20,7 @@ internal class AdrEntry
   {
     this._docFolder = AdrSettings.Current.DocFolder;
     this._templateType = templateType;
-    this._templatePath = $"{AdrSettings.Current.TemplateFolder}\\{templateType.ToString()}.md";
+    //this._templatePath = $"{AdrSettings.Current.TemplateFolder}\\{templateType.ToString()}.md";
     this._fileName = string.Empty;
   }
 
@@ -55,14 +55,9 @@ internal class AdrEntry
 
     WriteAdrFile(fileNumber);
 
-    if (SupersededLinks != null)
-    {
-      LinkSupersedes(SupersededLinks);
-    }
-    if (AdditionalLinks != null)
-    {
-      LinksAdditional(AdditionalLinks);
-    }
+    LinkSupersedes(SupersededLinks);
+
+    LinksAdditional(AdditionalLinks);
   }
 
   private void WriteAdr()
@@ -111,54 +106,51 @@ internal class AdrEntry
   private void WriteInitialAdrFile(int fileNumber)
   {
     using var writer = File.CreateText(this._fileName);
-    {
-      writer.WriteLine($"# {fileNumber}. {this.Title}");
-      writer.WriteLine();
-      writer.WriteLine(DateTime.Today.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
-      writer.WriteLine();
-      writer.WriteLine("## Status");
-      writer.WriteLine();
-      writer.WriteLine("Accepted");
-      writer.WriteLine();
-      writer.WriteLine("## Context");
-      writer.WriteLine();
-      writer.WriteLine("We need to record the architectural decisions made on this project.");
-      writer.WriteLine();
-      writer.WriteLine("## Decision");
-      writer.WriteLine();
-      writer.WriteLine(
-        "We will use Architecture Decision Records, as described by Michael Nygard in this article: http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions");
-      writer.WriteLine();
-      writer.WriteLine("## Consequences");
-      writer.WriteLine();
-      writer.WriteLine("See Michael Nygard's article, linked above.");
-    }
+    writer.WriteLine($"# {fileNumber}. {this.Title}");
+    writer.WriteLine();
+    writer.WriteLine(DateTime.Today.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
+    writer.WriteLine();
+    writer.WriteLine("## Status");
+    writer.WriteLine();
+    writer.WriteLine("Accepted");
+    writer.WriteLine();
+    writer.WriteLine("## Context");
+    writer.WriteLine();
+    writer.WriteLine("We need to record the architectural decisions made on this project.");
+    writer.WriteLine();
+    writer.WriteLine("## Decision");
+    writer.WriteLine();
+    writer.WriteLine("We will use Architecture Decision Records, as described by Michael Nygard in this article: http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions");
+    writer.WriteLine();
+    writer.WriteLine("## Consequences");
+    writer.WriteLine();
+    writer.WriteLine("See Michael Nygard's article, linked above.");
+
   }
 
   private void WriteAdrFile(int fileNumber)
   {
     using var writer = File.CreateText(_fileName);
-    {
-      writer.WriteLine($"# {fileNumber}. {this.Title}");
-      writer.WriteLine();
-      writer.WriteLine(DateTime.Today.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
-      writer.WriteLine();
-      writer.WriteLine("## Status");
-      writer.WriteLine();
-      writer.WriteLine("Proposed");
-      writer.WriteLine();
-      writer.WriteLine("## Context");
-      writer.WriteLine();
-      writer.WriteLine("{context}");
-      writer.WriteLine();
-      writer.WriteLine("## Decision");
-      writer.WriteLine();
-      writer.WriteLine("{decision}");
-      writer.WriteLine();
-      writer.WriteLine("## Consequences");
-      writer.WriteLine();
-      writer.WriteLine("{consequences}");
-    }
+    writer.WriteLine($"# {fileNumber}. {this.Title}");
+    writer.WriteLine();
+    writer.WriteLine(DateTime.Today.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
+    writer.WriteLine();
+    writer.WriteLine("## Status");
+    writer.WriteLine();
+    writer.WriteLine("Proposed");
+    writer.WriteLine();
+    writer.WriteLine("## Context");
+    writer.WriteLine();
+    writer.WriteLine("{context}");
+    writer.WriteLine();
+    writer.WriteLine("## Decision");
+    writer.WriteLine();
+    writer.WriteLine("{decision}");
+    writer.WriteLine();
+    writer.WriteLine("## Consequences");
+    writer.WriteLine();
+    writer.WriteLine("{consequences}");
+
   }
 
   private void CreateDocumentsFolderIfNotExists()
@@ -208,7 +200,8 @@ internal class AdrEntry
       let fileNum = file.Name.Substring(0, 4)
       where int.TryParse(fileNum, CultureInfo.InvariantCulture, out fileNumOut)
       select fileNumOut;
-    var maxFileNum = files.Any() ? files.Max() : 0;
+    var enumerable = files.ToList();
+    var maxFileNum = enumerable.Any() ? enumerable.Max() : 0;
     return maxFileNum + 1;
   }
 

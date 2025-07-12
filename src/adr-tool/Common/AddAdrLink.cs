@@ -5,7 +5,7 @@ public static class AddAdrLink
 {
   internal static void LinkAdr(string source, string linkType, string target)
   {
-    var adrBinDir = AdrSettings.Current.DocFolder;
+    //var adrBinDir = AdrSettings.Current.DocFolder;
 
     var sourceAdr = AdrFile.GetFile(source);
     var targetAdr = AdrFile.GetFile(target);

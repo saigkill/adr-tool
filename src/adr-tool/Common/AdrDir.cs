@@ -5,10 +5,10 @@ namespace adr_tool.Common;
 // _adr_dir
 internal class AdrDir
 {
-  private string reldir = ".";
+  private string _reldir = ".";
   private string MkRel(string path)
   {
-    var d = Path.Combine(reldir, path);
+    var d = Path.Combine(_reldir, path);
     return d.StartsWith("./") ? d.Substring(2) : d;
   }
   private string AbsDir(string path)
@@ -32,7 +32,7 @@ internal class AdrDir
   }
   public void FindAdrDirectory()
   {
-    while (AbsDir(reldir) != "/")
+    while (AbsDir(_reldir) != "/")
     {
       if (File.Exists(MkRel(".adr-dir")))
       {
@@ -46,7 +46,7 @@ internal class AdrDir
       }
       else
       {
-        reldir = Path.Combine(reldir, "..");
+        _reldir = Path.Combine(_reldir, "..");
       }
     }
     Console.WriteLine("doc/adr");

@@ -26,13 +26,13 @@ public class AdrEntryTest
     Assert.AreEqual("testDocFolder",
       adrEntry.GetType()
         .GetField("_docFolder", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-        .GetValue(adrEntry));
+        ?.GetValue(adrEntry));
     Assert.AreEqual($"{AdrSettings.Current.TemplateFolder}\\{templateType.ToString()}.md",
       adrEntry.GetType().GetField("_templatePath",
-        System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(adrEntry));
+        System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(adrEntry));
     Assert.AreEqual(templateType,
       adrEntry.GetType().GetField("_templateType",
-        System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(adrEntry));
+        System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(adrEntry));
   }
 
   //[TestMethod]
