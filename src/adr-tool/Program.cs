@@ -8,7 +8,6 @@ internal static class Program
 
   private static void Main(string[] args)
   {
-    //var generateStrategy = new GenerateOutput();
     var app = new CommandLineApplication();
     app.Name = "adr";
     app.Description = "A simply tool to handle architecture decision records.";
@@ -17,7 +16,7 @@ internal static class Program
 
     app.Command("init", (command) =>
     {
-      command.Description = "Creates the directory for adr's and writes first adr.";
+      command.Description = "Init it";
       var directory = command.Argument("[directory]", "");
       command.HelpOption(HelpOption);
       command.OnExecute(() =>
@@ -34,16 +33,28 @@ internal static class Program
 
     app.Command("list", (command) =>
     {
-      command.Description = "List available adrs.";
-      command.HelpOption(HelpOption);
+      command.Description = "Listet alle erstellten ADRs auf.";
       command.OnExecute(() =>
       {
-        List<string> files = AdrList.FindAdrFiles();
-        foreach (var file in files)
+        var docFolder = AdrSettings.Current.DocFolder;
+        if (string.IsNullOrWhiteSpace(docFolder) || !Directory.Exists(docFolder))
         {
-          Console.WriteLine(file);
+          Console.WriteLine("Kein gültiger ADR-Ordner gefunden.");
+          return 1;
         }
 
+        var files = Directory.GetFiles(docFolder, "*.md", SearchOption.TopDirectoryOnly);
+        if (files.Length == 0)
+        {
+          Console.WriteLine("Keine ADRs gefunden.");
+          return 0;
+        }
+
+        Console.WriteLine("Gefundene ADRs:");
+        foreach (var file in files)
+        {
+          Console.WriteLine($"- {Path.GetFileName(file)}");
+        }
         return 0;
       });
     });
@@ -53,70 +64,104 @@ internal static class Program
       command.Description = "";
       var title = command.Argument("title", "");
       var supersedes = command.Option("-s|--supersedes", "", CommandOptionType.MultipleValue);
-      //var additionalLinks = command.Option("-l|--links", "", CommandOptionType.MultipleValue);
       command.HelpOption(HelpOption);
 
       command.OnExecute(() =>
       {
+        var adrEntry = new AdrEntry(TemplateType.New) { Title = title.Value ?? "" };
+
+        // Supersedes-Option auswerten
         if (supersedes.HasValue())
         {
-          string[] supersededLinks = supersedes.Values.ToArray();
-          new AdrEntry(TemplateType.New) { Title = title.Value ?? "", SupersededLinks = supersededLinks }
-            .Write()
-            .Launch();
-        }
-        else
-        {
-          new AdrEntry(TemplateType.New) { Title = title.Value ?? "" }
-            .Write()
-            .Launch();
+          var supersedesList = supersedes.Values
+            .Select(s =>
+            {
+              // Versuche, die Nummer aus dem Dateinamen zu extrahieren
+              var fileName = Path.GetFileNameWithoutExtension(s);
+              var parts = fileName.Split('-');
+              if (parts.Length > 0 && int.TryParse(parts[0], out int adrNum))
+                return adrNum.ToString("D4");
+              return s;
+            })
+            .ToList();
+
+          // Vermerk im Titel ergänzen
+          adrEntry.Title += $" (Supersedes by {string.Join(", ", supersedesList)})";
+          adrEntry.SupersededLinks = supersedes.Values.ToArray();
         }
 
+        adrEntry
+          .Write()
+          .Launch();
         return 0;
       });
     });
 
-    //app.Command("link", (command) =>
-    //{
-    //  command.Description = "";
-    //  var title = command
-    //  command.OnExecute(() =>
-    //  {
-    //    //AdrLink.Link();
-    //    return 0;
-    //  });
-    //});
+    app.Command("link", (command) =>
+    {
+      command.Description = "Verlinkt zwei ADRs miteinander.";
+      var adr1 = command.Argument("adr1", "Erste ADR-Datei (z.B. 0001-titel.md)");
+      var adr2 = command.Argument("adr2", "Zweite ADR-Datei (z.B. 0002-titel.md)");
+      command.HelpOption(HelpOption);
 
-    //app.Command("generate", (command) =>
-    //{
-    //  command.Description = "Generate some outputs like toc or graph.";
-    //  var toc = command.Argument("toc", "");
-    //  toc.Description = "Generate a table of contents";
-    //  var graph = command.Argument("graph", "");
-    //  graph.Description = "Generate a graph of the architecture decision records.";
-    //  var intro = command.Option("-i|--intro", "", CommandOptionType.SingleValue);
-    //  intro.Description = "Write some things, that can be used as intro.";
-    //  var outro = command.Option("-o|--outro", "", CommandOptionType.SingleValue);
-    //  outro.Description = "Write some things, that can be used as outro.";
-    //  var linkPrefix = command.Option("-p|--link-prefix", "", CommandOptionType.SingleValue);
-    //  linkPrefix.Description = "Prefix for links in the generated output.";
+      command.OnExecute(() =>
+      {
+        var docFolder = AdrSettings.Current.DocFolder;
+        if (string.IsNullOrWhiteSpace(docFolder) || !Directory.Exists(docFolder))
+        {
+          Console.WriteLine("Kein gültiger ADR-Ordner gefunden.");
+          return 1;
+        }
 
-    //  command.OnExecute(() =>
-    //  {
-    //    if (toc != null)
-    //    {
-    //      generateStrategy.OutputStrategy(new GenerateToc(intro.ToString(), outro.ToString(), linkPrefix.ToString()));
-    //      generateStrategy.Generate();
-    //    }
-    //    else if (graph != null)
-    //    {
-    //      generateStrategy.OutputStrategy(new GenerateGraph(linkPrefix.Values));
-    //      generateStrategy.Generate();
-    //    }
+        var file1 = Path.Combine(docFolder, adr1.Value ?? "");
+        var file2 = Path.Combine(docFolder, adr2.Value ?? "");
 
-    //    return 0;
-    //  });
-    //});
+        if (!File.Exists(file1) || !File.Exists(file2))
+        {
+          Console.WriteLine("Mindestens eine der angegebenen ADR-Dateien existiert nicht.");
+          return 1;
+        }
+
+        void AddLink(string sourceFile, string targetFile)
+        {
+          var targetName = Path.GetFileName(targetFile);
+          var lines = File.ReadAllLines(sourceFile).ToList();
+
+          // Suche nach "## Links" oder füge am Ende hinzu
+          int linksIndex = lines.FindIndex(l => l.Trim() == "## Links");
+          if (linksIndex == -1)
+          {
+            lines.Add("");
+            lines.Add("## Links");
+            linksIndex = lines.Count - 1;
+          }
+
+          // Prüfe, ob Link schon existiert
+          var linkText = $"- Siehe [{targetName}]({targetName})";
+          if (!lines.Skip(linksIndex + 1).Any(l => l.Contains(targetName)))
+          {
+            lines.Insert(linksIndex + 1, linkText);
+          }
+
+          File.WriteAllLines(sourceFile, lines);
+        }
+
+        AddLink(file1, file2);
+        AddLink(file2, file1);
+
+        Console.WriteLine($"ADRs {adr1.Value} und {adr2.Value} wurden gegenseitig verlinkt.");
+        return 0;
+      });
+    });
+
+    app.Command("generate", (command) =>
+    {
+      command.Description = "";
+      command.OnExecute(() =>
+      {
+        return 0;
+      });
+    });
 
     app.OnExecute(() =>
     {

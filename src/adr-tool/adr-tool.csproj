@@ -9,10 +9,10 @@
     <PackageId>Saigkill.$(AssemblyName).CLI</PackageId>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>A dotnet tool for working with Architecture Decision Records (ADRs).</Title>
-    <Version>1.1.0.0</Version>
+    <Version>2.0.0.0</Version>
     <Authors>Sascha Manns</Authors>
     <Description>A dotnet tool for working with Architecture Decision Records (ADRs).</Description>
-    <Copyright>(c) 2024 by saschaa Manns</Copyright>
+    <Copyright>(c) 2024 by Sascha Manns</Copyright>
     <PackageProjectUrl>https://dev.azure.com/saigkill/AdrTool</PackageProjectUrl>
     <RepositoryUrl>https://dev.azure.com/saigkill/AdrTool/_git/AdrTool</RepositoryUrl>
     <PackageTags>tool adr architecture decision records</PackageTags>
@@ -26,6 +26,8 @@
     <IncludeSymbols>True</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <PackageReleaseNotes>1.0 Initial Version
+2.0 Extended ADR tool. Now we have adr link</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -42,6 +44,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Roslyn.Analyzers" Version="1.0.3.4" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
   </ItemGroup>

@@ -2,17 +2,28 @@
 
 namespace adr_tool;
 
-internal class AdrSettings
+public sealed class AdrSettings
 {
   private const string DefaultFileName = "adr.config.json";
 
-  private static readonly AdrSettings _instance = new AdrSettings();
+  private static AdrSettings _instance = new AdrSettings();
 
   private AdrSettings()
   {
   }
 
-  public static AdrSettings Current => _instance;
+  public static AdrSettings Current
+  {
+    get
+    {
+      if (_instance == null)
+      {
+        _instance = Read(new AdrSettings());
+      }
+
+      return _instance;
+    }
+  }
 
   public string DocFolder { get; set; } = string.Empty;
 
@@ -38,25 +49,25 @@ internal class AdrSettings
     return this;
   }
 
-  //private static AdrSettings Read(AdrSettings settings)
-  //{
-  //  if (!File.Exists(DefaultFileName))
-  //  {
-  //    settings.DocFolder = GlobalVariables.AdrFolder;
-  //    settings.TemplateFolder = "";
-  //    return settings;
-  //  }
+  private static AdrSettings Read(AdrSettings settings)
+  {
+    if (!File.Exists(DefaultFileName))
+    {
+      settings.DocFolder = "docs\\adr";
+      settings.TemplateFolder = "";
+      return settings;
+    }
 
-  //  using var stream = File.OpenText(DefaultFileName);
-  //  var serializer = new JsonSerializer
-  //  {
-  //    Formatting = Formatting.Indented,
-  //    NullValueHandling = NullValueHandling.Ignore
-  //  };
+    using var stream = File.OpenText(DefaultFileName);
+    var serializer = new JsonSerializer
+    {
+      Formatting = Formatting.Indented,
+      NullValueHandling = NullValueHandling.Ignore
+    };
 
-  //  var value = (dynamic)serializer.Deserialize(stream, new { path = "", template = "" }.GetType())!;
-  //  settings.DocFolder = value.path;
-  //  settings.TemplateFolder = value.template;
-  //  return settings;
-  //}
+    var value = serializer.Deserialize(stream, typeof(object)) as dynamic;
+    settings.DocFolder = value?.path ?? string.Empty;
+    settings.TemplateFolder = value?.template ?? string.Empty;
+    return settings;
+  }
 }

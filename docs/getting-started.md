@@ -20,5 +20,10 @@ To list all ADRs, run the following command in the powershell or cmd:
 adr list
 ```
 
+To link two Adrs, run the following command in the powershell or cmd:
+```powershell
+adr link "adr1.md" "adr2.md"
+```
+
 
 This will create a new ADR file in the `docs/adr` directory with the title as the filename. It will openened in the default editor.
