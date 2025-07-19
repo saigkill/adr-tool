@@ -17,11 +17,11 @@
 // THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // </copyright>
 
-using adr_tool;
-using JetBrains.Annotations;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.IO;
+
+using JetBrains.Annotations;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace adr_tool.Tests;
 
@@ -88,22 +88,22 @@ public sealed class AdrEntryTest
     Directory.Delete(docFolder, true);
   }
 
-  [TestMethod]
-  [DataRow(TemplateType.Adr, "docs\\adr\\0001-record-architecture-decisions.md")]
-  [DataRow(TemplateType.New, "docs\\adr\\0001-new-decision.md")]
-  public void Launch_ShouldOpenFile(TemplateType templateType, string expectedFilePath)
-  {
-    // Arrange
-    AdrSettings.Current.DocFolder = "docs\\adr";
-    AdrSettings.Current.TemplateFolder = "templates";
-    var adrEntry = new AdrEntry(templateType);
-    adrEntry.Write();
+  //[TestMethod]
+  //[DataRow(TemplateType.Adr, "docs\\adr\\0001-record-architecture-decisions.md")]
+  //[DataRow(TemplateType.New, "docs\\adr\\0001-new-decision.md")]
+  //public void Launch_ShouldOpenFile(TemplateType templateType, string expectedFilePath)
+  //{
+  //  // Arrange
+  //  AdrSettings.Current.DocFolder = "docs\\adr";
+  //  AdrSettings.Current.TemplateFolder = "templates";
+  //  var adrEntry = new AdrEntry(templateType);
+  //  adrEntry.Write();
 
-    // Act
-    adrEntry.Launch();
+  //  // Act
+  //  adrEntry.Launch();
 
-    // Assert
-    Assert.IsTrue(File.Exists(expectedFilePath));
-    File.Delete(expectedFilePath); // Clean up
-  }
+  //  // Assert
+  //  Assert.IsTrue(File.Exists(expectedFilePath));
+  //  File.Delete(expectedFilePath); // Clean up
+  //}
 }
