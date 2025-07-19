@@ -31,13 +31,13 @@ public sealed class AdrEntryTest
 {
   [TestMethod]
   [DataRow(TemplateType.Adr, "Record Architecture Decisions", new string[] { },
-    "docs\\adr\\0001-record-architecture-decisions.md")]
-  [DataRow(TemplateType.New, "New Decision", new string[] { "Link1", "Link2" }, "docs\\adr\\0001-new-decision.md")]
+    "docs//adr//0001-record-architecture-decisions.md")]
+  [DataRow(TemplateType.New, "New Decision", new string[] { "Link1", "Link2" }, "docs//adr//0001-new-decision.md")]
   public void Write_ShouldCreateCorrectFile(TemplateType templateType, string title, string[] supersededLinks,
     string expectedFilePath)
   {
     // Arrange
-    AdrSettings.Current.DocFolder = "docs\\adr";
+    AdrSettings.Current.DocFolder = "docs//adr";
     AdrSettings.Current.TemplateFolder = "templates";
     var adrEntry = new AdrEntry(templateType) { Title = title, SupersededLinks = supersededLinks };
 
@@ -65,8 +65,8 @@ public sealed class AdrEntryTest
   }
 
   [TestMethod]
-  [DataRow("docs\\adr", 1, new string[] { })]
-  [DataRow("docs\\adr", 2, new string[] { "0001-existing.md" })]
+  [DataRow("docs//adr", 1, new string[] { })]
+  [DataRow("docs//adr", 2, new string[] { "0001-existing.md" })]
   public void GetNextFileNumber_ShouldReturnCorrectNumber(string docFolder, int expected, string[] existingFiles)
   {
     // Arrange
@@ -89,12 +89,12 @@ public sealed class AdrEntryTest
   }
 
   //[TestMethod]
-  //[DataRow(TemplateType.Adr, "docs\\adr\\0001-record-architecture-decisions.md")]
-  //[DataRow(TemplateType.New, "docs\\adr\\0001-new-decision.md")]
+  //[DataRow(TemplateType.Adr, "docs//adr//0001-record-architecture-decisions.md")]
+  //[DataRow(TemplateType.New, "docs//adr//0001-new-decision.md")]
   //public void Launch_ShouldOpenFile(TemplateType templateType, string expectedFilePath)
   //{
   //  // Arrange
-  //  AdrSettings.Current.DocFolder = "docs\\adr";
+  //  AdrSettings.Current.DocFolder = "docs//adr";
   //  AdrSettings.Current.TemplateFolder = "templates";
   //  var adrEntry = new AdrEntry(templateType);
   //  adrEntry.Write();

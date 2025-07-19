@@ -7,7 +7,7 @@ public sealed class AdrEntry(TemplateType templateType)
 {
   private readonly string _docFolder = AdrSettings.Current.DocFolder;
 
-  private readonly string _templatePath = $"{AdrSettings.Current.TemplateFolder}\\{templateType.ToString()}.md";
+  private readonly string _templatePath = $"{AdrSettings.Current.TemplateFolder}//{templateType.ToString()}.md";
 
   private string _fileName = string.Empty;
 

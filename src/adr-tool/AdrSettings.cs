@@ -53,7 +53,7 @@ public sealed class AdrSettings
   {
     if (!File.Exists(DefaultFileName))
     {
-      settings.DocFolder = "docs\\adr";
+      settings.DocFolder = "docs//adr";
       settings.TemplateFolder = "";
       return settings;
     }
