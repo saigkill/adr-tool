@@ -15,6 +15,11 @@ To create a new ADR, run the following command in the powershell or cmd:
 adr new "Title of the ADR"
 ```
 
+To create a new ADR and supersedes an existing one, use the following command:
+```powershell
+adr nw "Title of the ADR" --supersedes "adr1.md"
+```
+
 To list all ADRs, run the following command in the powershell or cmd:
 ```powershell
 adr list

@@ -15,7 +15,6 @@ A command-line tool for working with Architecture Decision Records (ADRs). This 
 |Deployment Prod | [![Deployment status](https://vsrm.dev.azure.com/saigkill/_apis/public/Release/badge/d45d65b6-85d0-4829-a3b1-e6794b2ec791/2/2)](https://dev.azure.com/saigkill/AdrTool/_release?_a=releases&view=mine&definitionId=2) |
 |Deployment Stage | [![Deployment status](https://vsrm.dev.azure.com/saigkill/_apis/public/Release/badge/d45d65b6-85d0-4829-a3b1-e6794b2ec791/1/1)](https://dev.azure.com/saigkill/AdrTool/_release?definitionId=1&view=mine&_a=releases) |
 |Code Coverage | [![Coverage](https://img.shields.io/azure-devops/coverage/saigkill/AdrTool/68)](https://dev.azure.com/saigkill/AdrTool/_build/latest?definitionId=68) |
-|Code Quality | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=saigkill_adr-tool&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=saigkill_adr-tool) |
 |Best Practices | [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/10757/badge)](https://www.bestpractices.dev/projects/10757) |
 |Bugreports|[![GitHub issues](https://img.shields.io/github/issues/saigkill/adr-tool)](https://github.com/saigkill/adr-tool/issues)
 |Blog|[![Blog](https://img.shields.io/badge/Blog-Saigkill-blue)](https://saschamanns.de)|
@@ -43,20 +42,4 @@ dotnet tool install --global Saigkill.adr-tool.CLI
 
 ## Usage
 
-To initialize the ADR directory, run the following command in the powershell or cmd:
-```powershell
-adr init
-```
-
-To create a new ADR, run the following command in the powershell or cmd:
-```powershell
-adr new "Title of the ADR"
-```
-
-To list all ADRs, run the following command in the powershell or cmd:
-```powershell
-adr list
-```
-
-
-This will create a new ADR file in the `docs/adr` directory with the title as the filename. It will openened in the default editor.
+Look at the [documentation](https://moongladesm.blob.core.windows.net/docs/_AdrTool/index.html) for usage instructions.

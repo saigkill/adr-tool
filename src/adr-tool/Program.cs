@@ -16,7 +16,7 @@ internal static class Program
 
     app.Command("init", (command) =>
     {
-      command.Description = "Init it";
+      command.Description = "Initialization";
       var directory = command.Argument("[directory]", "");
       command.HelpOption(HelpOption);
       command.OnExecute(() =>
@@ -33,24 +33,24 @@ internal static class Program
 
     app.Command("list", (command) =>
     {
-      command.Description = "Listet alle erstellten ADRs auf.";
+      command.Description = "List all created ADRs.";
       command.OnExecute(() =>
       {
         var docFolder = AdrSettings.Current.DocFolder;
         if (string.IsNullOrWhiteSpace(docFolder) || !Directory.Exists(docFolder))
         {
-          Console.WriteLine("Kein gültiger ADR-Ordner gefunden.");
+          Console.WriteLine("No valid ADR directory found.");
           return 1;
         }
 
         var files = Directory.GetFiles(docFolder, "*.md", SearchOption.TopDirectoryOnly);
         if (files.Length == 0)
         {
-          Console.WriteLine("Keine ADRs gefunden.");
+          Console.WriteLine("No ADRs found");
           return 0;
         }
 
-        Console.WriteLine("Gefundene ADRs:");
+        Console.WriteLine("Founded ADRs:");
         foreach (var file in files)
         {
           Console.WriteLine($"- {Path.GetFileName(file)}");
@@ -61,9 +61,9 @@ internal static class Program
 
     app.Command("new", (command) =>
     {
-      command.Description = "";
-      var title = command.Argument("title", "");
-      var supersedes = command.Option("-s|--supersedes", "", CommandOptionType.MultipleValue);
+      command.Description = "Create a new Record.";
+      var title = command.Argument("title", "Enter your ADR title.");
+      var supersedes = command.Option("-s|--supersedes", "Creates a new Record, but marks another Recors as Superseded.", CommandOptionType.MultipleValue);
       command.HelpOption(HelpOption);
 
       command.OnExecute(() =>
@@ -99,9 +99,9 @@ internal static class Program
 
     app.Command("link", (command) =>
     {
-      command.Description = "Verlinkt zwei ADRs miteinander.";
-      var adr1 = command.Argument("adr1", "Erste ADR-Datei (z.B. 0001-titel.md)");
-      var adr2 = command.Argument("adr2", "Zweite ADR-Datei (z.B. 0002-titel.md)");
+      command.Description = "Links to ADRs";
+      var adr1 = command.Argument("adr1", "First ADR-File (z.B. 0001-titel.md)");
+      var adr2 = command.Argument("adr2", "Second ADR-File (z.B. 0002-titel.md)");
       command.HelpOption(HelpOption);
 
       command.OnExecute(() =>
@@ -109,7 +109,7 @@ internal static class Program
         var docFolder = AdrSettings.Current.DocFolder;
         if (string.IsNullOrWhiteSpace(docFolder) || !Directory.Exists(docFolder))
         {
-          Console.WriteLine("Kein gültiger ADR-Ordner gefunden.");
+          Console.WriteLine("No valid ADR directory found.");
           return 1;
         }
 
@@ -118,7 +118,7 @@ internal static class Program
 
         if (!File.Exists(file1) || !File.Exists(file2))
         {
-          Console.WriteLine("Mindestens eine der angegebenen ADR-Dateien existiert nicht.");
+          Console.WriteLine("At least one of the specified ADR files does not exist.");
           return 1;
         }
 
@@ -149,19 +149,19 @@ internal static class Program
         AddLink(file1, file2);
         AddLink(file2, file1);
 
-        Console.WriteLine($"ADRs {adr1.Value} und {adr2.Value} wurden gegenseitig verlinkt.");
+        Console.WriteLine($"ADRs {adr1.Value} and {adr2.Value} linked to each other.");
         return 0;
       });
     });
 
-    app.Command("generate", (command) =>
-    {
-      command.Description = "";
-      command.OnExecute(() =>
-      {
-        return 0;
-      });
-    });
+    //app.Command("generate", (command) =>
+    //{
+    //  command.Description = "";
+    //  command.OnExecute(() =>
+    //  {
+    //    return 0;
+    //  });
+    //});
 
     app.OnExecute(() =>
     {
