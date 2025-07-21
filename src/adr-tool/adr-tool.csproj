@@ -8,8 +8,8 @@
     <Nullable>enable</Nullable>
     <PackageId>Saigkill.$(AssemblyName).CLI</PackageId>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Title>A dotnet tool for working with Architecture Decision Records (ADRs).</Title>
-    <Version>2.0.0.0</Version>
+    <Title>Architecture Decision Records (ADRs)</Title>
+    <Version>2.1.0.0</Version>
     <Authors>Sascha Manns</Authors>
     <Description>A dotnet tool for working with Architecture Decision Records (ADRs).</Description>
     <Copyright>(c) 2024 by Sascha Manns</Copyright>
@@ -26,8 +26,11 @@
     <IncludeSymbols>True</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
-    <PackageReleaseNotes>1.0 Initial Version
-2.0 Extended ADR tool. Now we have adr link</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      1.0 Initial Version
+      2.0 Extended ADR tool. Now we have adr link
+      2.1 Localized for english language
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
