@@ -3,11 +3,6 @@ A command-line tool for working with Architecture Decision Records (ADRs). This 
 
 ## Badges
 
-|What|Where|
-|---|---|
-| Code | https://dev.azure.com/saigkill/AdrTool |
-| Docs | https://moongladesm.blob.core.windows.net/docs/_AdrTool/index.html |
-
 |What|Status|
 |---|---|
 |Continuous Integration Prod | [![Build status](https://dev.azure.com/saigkill/AdrTool/_apis/build/status/AdrTool-ASP.NET%20Core-CI-Prod)](https://dev.azure.com/saigkill/AdrTool/_build/latest?definitionId=68)|
@@ -27,8 +22,7 @@ File a bug report [on Github](https://github.com/saigkill/adr-tool/issues?q=sort
 
 ## Deployment
 
-The deployment is done by Azure DevOps.
-The development branch is deployed to [Azure Artifacts Nuget Feed](https://pkgs.dev.azure.com/saigkill/AdrTool/_packaging/SaigkillsAdrFeed/nuget/v3/index.json).
+The deployment is done by Github.
 The master branch is deployed to [NuGet.org](https://www.nuget.org/packages/Saigkill.adr-tool.CLI/).
 
 ## Installation
