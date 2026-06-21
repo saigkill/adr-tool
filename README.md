@@ -5,8 +5,8 @@ A command-line tool for working with Architecture Decision Records (ADRs). This 
 
 |What|Status|
 |---|---|
-|Continuous Integration Prod | [![Build status](https://dev.azure.com/saigkill/AdrTool/_apis/build/status/AdrTool-ASP.NET%20Core-CI-Prod)](https://dev.azure.com/saigkill/AdrTool/_build/latest?definitionId=68)|
-|Continuous Integration Stage | [![Build status](https://dev.azure.com/saigkill/AdrTool/_apis/build/status/AdrTool-.NET%20Desktop-CI)](https://dev.azure.com/saigkill/AdrTool/_build/latest?definitionId=67) |
+|Continuous Integration Prod | [![.NET Develop](https://github.com/saigkill/adr-tool/actions/workflows/dotnet-release.yml/badge.svg)](https://github.com/saigkill/adr-tool/actions/workflows/dotnet-release.yml)|
+|Continuous Integration Stage | [![.NET Develop](https://github.com/saigkill/adr-tool/actions/workflows/dotnet-develop.yml/badge.svg)](https://github.com/saigkill/adr-tool/actions/workflows/dotnet-develop.yml) |
 |Code Coverage | [![Coverage](https://img.shields.io/azure-devops/coverage/saigkill/AdrTool/68)](https://dev.azure.com/saigkill/AdrTool/_build/latest?definitionId=68) |
 |Bugreports|[![GitHub issues](https://img.shields.io/github/issues/saigkill/adr-tool)](https://github.com/saigkill/adr-tool/issues)
 |Blog|[![Blog](https://img.shields.io/badge/Blog-Saigkill-blue)](https://saschamanns.de)|

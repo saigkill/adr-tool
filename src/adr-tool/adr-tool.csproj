@@ -9,12 +9,12 @@
     <PackageId>Saigkill.$(AssemblyName).CLI</PackageId>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>Architecture Decision Records (ADRs)</Title>
-    <Version>2.1.0.0</Version>
+    <Version>2.2.0.0</Version>
     <Authors>Sascha Manns</Authors>
     <Description>A dotnet tool for working with Architecture Decision Records (ADRs).</Description>
-    <Copyright>(c) 2024 by Sascha Manns</Copyright>
-    <PackageProjectUrl>https://dev.azure.com/saigkill/AdrTool</PackageProjectUrl>
-    <RepositoryUrl>https://dev.azure.com/saigkill/AdrTool/_git/AdrTool</RepositoryUrl>
+    <Copyright>(c) 2026 by Sascha Manns</Copyright>
+    <PackageProjectUrl>https://github.com/saigkill/adr-tool</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/saigkill/adr-tool</RepositoryUrl>
     <PackageTags>tool adr architecture decision records</PackageTags>
     <PackAsTool>True</PackAsTool>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -30,7 +30,8 @@
       1.0 Initial Version
       2.0 Extended ADR tool. Now we have adr link
       2.1 Localized for english language
-    </PackageReleaseNotes>
+      2.2 Updated for .NET 10</PackageReleaseNotes>
+    <PackageLicenseUrl>https://github.com/saigkill/adr-tool/blob/develop/LICENSE.md</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>
