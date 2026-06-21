@@ -13,6 +13,8 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  checks: write
+  pull-requests: write
 
 jobs:
   build:
@@ -30,7 +32,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --logger:junit /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --results-directory ./TestResults
+      run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --logger:"junit;LogFilePath=./TestResults/junit.xml" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --results-directory ./TestResults
     - name: Pack
       run: dotnet pack
     - name: Run Codacy Analysis CLI
@@ -39,7 +41,7 @@ jobs:
       uses: EnricoMi/publish-unit-test-result-action@v2
       if: always()
       with:
-        files: ./TestResults/**/*.xml
+        files: ./TestResults/**/junit.xml
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5
       with:
