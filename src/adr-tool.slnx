@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="adr-tool.Tests/adr-tool.Tests.csproj" />
+  <Project Path="adr-tool/adr-tool.csproj" />
+</Solution>
