@@ -31,7 +31,7 @@
       2.0 Extended ADR tool. Now we have adr link
       2.1 Localized for english language
       2.2 Updated for .NET 10</PackageReleaseNotes>
-    <PackageLicenseUrl>https://github.com/saigkill/adr-tool/blob/develop/LICENSE.md</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>
