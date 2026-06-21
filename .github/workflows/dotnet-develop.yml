@@ -10,8 +10,7 @@ on:
   push:
     branches: [ "develop" ]
   pull_request:
-    branches: [ "develop" ]
-  workflow_dispatch:
+    branches: [ "develop" ]  
     
 permissions:
   contents: read
